@@ -1,0 +1,24 @@
+"""A basic simplate requesting audreyr's product data from the Consumer Notebook API.
+"""
+import json
+import random
+import requests
+
+^L
+username = 'audreyr'
+api_key = 'your-api-key-here'
+url = 'https://consumernotebook.com/api/v1/products/?username={0}&apikey={1}'.format(username, api_key)
+r = requests.get(url)
+products = {}
+if r.status_code == 200:
+    products_json = json.loads(r.content)
+    if products_json:
+        products = products_json[u'objects']
+
+^L
+
+<ul>
+    {% for product in products %}
+        <li>{{ product[u'title'] }}</li>
+    {% end %}
+</ul>
